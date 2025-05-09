@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitor DBF → MariaDB</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status-card { background: #f5f5f5; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+        .file-list { margin-top: 20px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Monitor DBF → MariaDB</h1>
+    
+    <div class="status-card">
+        <h2>Estado de Sincronización</h2>
+        <p><strong>Última verificación:</strong> {{ status.last_check or "Nunca" }}</p>
+        <p><strong>Registros procesados:</strong> {{ status.total_processed }}</p>
+        
+        {% if status.errors %}
+        <div class="errors">
+            <h3>Errores:</h3>
+            <ul>
+                {% for error in status.errors %}
+                <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="file-list">
+        <h2>Archivos Monitoreados</h2>
+        <ul>
+            {% for file in files %}
+            <li>{{ file }} (Última posición: {{ status.last_positions.get(file, 0) }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
