@@ -1,0 +1,7 @@
+# Ejemplo de .gitignore
+venv/
+recibos_db_backup_20250509.sql.gz
+recibos_dbf_backup_20250509.sql.gz
+*.log
+config.ini
+archivos_temporales/
